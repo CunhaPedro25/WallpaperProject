@@ -196,7 +196,7 @@ body{
 }
 
 #TimerSelector-button:hover{
-    background-color: rgba(192, 192, 192, 0.2);
+    background-color: rgba(192, 192, 192, 0.2) !important;
     cursor: pointer;
 }
 
