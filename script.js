@@ -5,15 +5,13 @@ var defaultTime = tempo;
 var open = false;
 let btns = document.querySelectorAll("[data-button]");
 let timerBtns = document.querySelectorAll("[data-timer]");
+var i = 1;
 
 function next(){
     tempo = defaultTime;
+    i++
 
-    var red = Math.floor(Math.random() * 255);
-    var green = Math.floor(Math.random() * 255);
-    var blue = Math.floor(Math.random() * 255);
-
-    document.body.style.backgroundColor = "rgb(" + red + "," +green+ "," +blue+ ")";
+    document.body.style.backgroundImage = "url('https://picsum.photos/1920/1080?random=" + i + "')";
 }
 
 if(tempo != -1){
@@ -44,7 +42,7 @@ function info(){
 function changeTheme(){
     darktheme = !darktheme;
 
-    if(darktheme == true){ 
+    if(darktheme == true){
         document.getElementById("dropdown-content").style.backgroundColor = "#161b22";
         document.getElementById("dropdown-content").style.color = "white";
         btns.forEach(element => element.style.backgroundColor = "#161b22");
@@ -63,7 +61,7 @@ function changeTheme(){
         //TimerSelector
         document.getElementById("TimerSelector-content").style.backgroundColor = "white";
         document.getElementById("TimerSelector-content").style.color = "black";
-        timerBtns.forEach(element => element.style.backgroundColor = "white"); 
+        timerBtns.forEach(element => element.style.backgroundColor = "white");
     }
 
     btns[0].style.backgroundColor = "lightgrey";
