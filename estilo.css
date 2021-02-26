@@ -81,7 +81,7 @@ body{
 
 #dropdown-button{
     margin: 0;
-    padding: 0px 20px;
+    padding: 10px 20px;
     width: 110px;
     display: flex; 
     flex-direction: row; 
@@ -107,7 +107,8 @@ body{
 }
 
 #dropdown-button p{
-    margin-left: 10px;
+    margin-left: 10px !important;
+    margin: 0
 }
 
 #tempo{
