@@ -1,10 +1,10 @@
 var tempo = 30;
+var darktheme = false;
+var selectedTimer = 1;
 var defaultTime = tempo;
 var open = false;
-var darktheme = false;
 let btns = document.querySelectorAll("[data-button]");
 let timerBtns = document.querySelectorAll("[data-timer]");
-var selectedTimer = 1;
 
 function next(){
     tempo = defaultTime;
@@ -42,7 +42,7 @@ function info(){
 }
 
 function changeTheme(){
-    darktheme = !darktheme
+    darktheme = !darktheme;
 
     if(darktheme == true){ 
         document.getElementById("dropdown-content").style.backgroundColor = "#161b22";
@@ -79,13 +79,20 @@ function selectTimer(getTime, timerbutton){
     else
         timerBtns.forEach(element => element.style.backgroundColor = "white");
 
-    timerBtns[selectedTimer].style.backgroundColor = "lightgrey";
+    timerBtns[selectedTimer].style.backgroundColor = "rgba(125, 125, 125, 0.5)";
+}
+
+function costumTimer(timerbutton){
+    var x = prompt("Enter a Custom Timer (In Seconds)", "0");
+    var costumNum = parseInt(x);
+
+    selectTimer(costumNum, timerbutton);
 }
 
 function openTimerSelector() {
     document.getElementById("TimerSelector").style.display = "flex";
 
-    timerBtns[selectedTimer].style.backgroundColor = "lightgrey";
+    timerBtns[selectedTimer].style.backgroundColor = "rgba(125, 125, 125, 0.5)";
 }
 
 function closeTimerSelector() {

@@ -2,6 +2,12 @@ body{
     background-color: white;
     transition: all 0.5s;
     font-family: sans-serif;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 #control-line{
@@ -81,18 +87,12 @@ body{
 
 #dropdown-button{
     margin: 0;
-    padding: 10px 20px;
+    padding: 15px 20px;
     width: 110px;
     display: flex; 
     flex-direction: row; 
     align-items: center;
     text-decoration: none;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
 }
 #dropdown-button:first-child{
     border-radius: 5px 5px 0px 0px;
@@ -102,13 +102,13 @@ body{
 }
 
 #dropdown-button:hover{
-    background-color: rgba(192, 192, 192, 0.2);
+    background-color: rgba(178, 178, 178, 0.2);
     cursor: pointer;
 }
 
 #dropdown-button p{
+    margin: 0;
     margin-left: 10px !important;
-    margin: 0
 }
 
 #tempo{
@@ -137,7 +137,7 @@ body{
     }
 }
 
-#TimerSelector-content {
+#TimerSelector-content{
 	background-color: #fefefe;
 	margin: auto;
 	border: 1px solid #888;
@@ -185,18 +185,12 @@ body{
     width: 85%;
     text-align: center;
     display: flex; 
-    flex-direction: row; 
+    flex-direction: row;
     text-decoration: none;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
 }
 
 #TimerSelector-button:hover{
-    background-color: rgba(192, 192, 192, 0.2) !important;
+    background-color: rgba(125, 125, 125, 0.2) !important;
     cursor: pointer;
 }
 
