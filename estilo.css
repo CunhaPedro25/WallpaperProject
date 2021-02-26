@@ -14,6 +14,25 @@ body{
         flex-direction: column;
         width: 70px;
     }
+    body{
+        display: flex;
+        background-color: white;
+        transition: all 0.5s;
+        font-family: sans-serif;
+    }
+    #dropdown-content{
+        left: 80px;
+        animation: growSide 0.3s cubic-bezier(.38,.05,.04,1.1) !important;
+        transform-origin: left !important;
+    }
+    @keyframes growSide{
+        0% {
+            transform: scaleX(0)
+        }
+        100% {
+            transform: scaleX(1)
+        }
+    }
 }
 
 #button{
