@@ -1,5 +1,4 @@
 body{
-    transition: all 0.5s;
     font-family: sans-serif;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -10,21 +9,21 @@ body{
     margin: 0;
     background-size: cover;
     background-color: white;
+    transition: all 0.5s;
 }
 
 #background-notvisible{
     width: 100%;
     height: 100%;
     position: absolute;
-    background-image: url("https://picsum.photos/1920/1080?random=2");
     background-size: cover;
+    opacity: 0;
 }
 
 #background-visible{
     width: 100%;
     height: 100%;
     position: absolute;
-    background-image: url("https://picsum.photos/1920/1080?random=1");
     background-size: cover;
 }
 
@@ -47,10 +46,10 @@ body{
     background-color: white;
     text-align: center;
     cursor: pointer;
-    transition: all 0.5s;
     border: none;
     text-decoration: none;
     border-radius: 5px;
+    transition: all 0.5s;
     box-shadow: 0px 5px 5px 1px rgba(0, 0, 0, .5);
     color: black;
 }
@@ -67,7 +66,6 @@ body{
     border-radius: 5px;
     margin-left: 5px;
     margin-top: 20px;
-    transition: all 0.5s;
     animation: growDown 0.3s cubic-bezier(.38,.05,.04,1.1);
     transform-origin: top;
     box-shadow: 0px 5px 5px 1px rgba(0, 0, 0, .5);
@@ -209,7 +207,6 @@ body{
 
     body{
         display: flex;
-        transition: all 0.5s;
         font-family: sans-serif;
     }
 
