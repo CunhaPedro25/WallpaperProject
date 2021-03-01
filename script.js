@@ -4,22 +4,24 @@ var selectedTimer = 1;
 var defaultTime = tempo;
 var open = false;
 var hidden = false;
+var fullScreen = false;
 let btns = document.querySelectorAll("[data-button]");
 let timerBtns = document.querySelectorAll("[data-timer]");
-var i = 2;
+
+var i = 1;
+document.getElementById("background-visible").style.backgroundImage = "url('https://picsum.photos/1920/1080?ramdom=" + i + "')";
+
+i++;
+document.getElementById("background-notvisible").style.backgroundImage = "url('https://picsum.photos/1920/1080?ramdom=" + i + "')";
+
 
 function next(){
     tempo = defaultTime;
-    if(i == 1000)
-        i = 1;
 
-    if(i == 2)
-        document.getElementById("background-visible").style.backgroundImage = "url('https://picsum.photos/1920/1080?random=2')"
-    else
-        document.getElementById("background-visible").style.backgroundImage = document.getElementById("background-notvisible").style.backgroundImage; 
-
-    i++
-    document.getElementById("background-notvisible").style.backgroundImage = "url('https://picsum.photos/1920/1080?random=" + i + "')";
+    document.getElementById("background-visible").style.backgroundImage = document.getElementById("background-notvisible").style.backgroundImage;
+    
+    i++;
+    document.getElementById("background-notvisible").style.backgroundImage = "url('https://picsum.photos/1920/1080?ramdom=" + i + "')";
 }
 
 if(tempo != -1){
@@ -30,6 +32,32 @@ if(tempo != -1){
             next();
         }
     },1000);
+}
+
+function toggleFullscreen() {
+    fullScreen = !fullScreen;
+
+    if(fullScreen){
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) { /* Safari */
+            document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) { /* IE11 */
+            document.msExitFullscreen();
+        }
+        
+        document.getElementById("fullscreen-icon").innerHTML = "<path d='M1.5 1a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4A1.5 1.5 0 0 1 1.5 0h4a.5.5 0 0 1 0 1h-4zM10 .5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 16 1.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5zM.5 10a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 0 14.5v-4a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v4a1.5 1.5 0 0 1-1.5 1.5h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5z'/>"
+    }else{
+        if (document.body.requestFullscreen) {
+            document.body.requestFullscreen();
+        } else if (document.body.webkitRequestFullscreen) { /* Safari */
+            document.body.webkitRequestFullscreen();
+        } else if (document.body.msRequestFullscreen) { /* IE11 */
+            document.body.msRequestFullscreen();
+        }
+
+        document.getElementById("fullscreen-icon").innerHTML = "<path d='M5.5 0a.5.5 0 0 1 .5.5v4A1.5 1.5 0 0 1 4.5 6h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5zm5 0a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 10 4.5v-4a.5.5 0 0 1 .5-.5zM0 10.5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 6 11.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5zm10 1a1.5 1.5 0 0 1 1.5-1.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4z'/>"
+    }
 }
 
 function menu(){
