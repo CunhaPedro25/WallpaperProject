@@ -8,31 +8,35 @@ var fullScreen = false;
 let btns = document.querySelectorAll("[data-button]");
 let timerBtns = document.querySelectorAll("[data-timer]");
 
+var divs = ["background-one", "background-two"];
+var divAtual = 1;
+
 var i = 1;
-document.getElementById("background-visible").style.backgroundImage = "url('https://picsum.photos/1920/1080?ramdom=" + i + "')";
+document.getElementById("background-one").style.backgroundImage = "url('https://picsum.photos/1920/1080?ramdom=" + i + "')";
 
 i++;
-document.getElementById("background-notvisible").style.backgroundImage = "url('https://picsum.photos/1920/1080?ramdom=" + i + "')";
-
+document.getElementById("background-two").style.backgroundImage = "url('https://picsum.photos/1920/1080?ramdom=" + i + "')";
+document.getElementById(divs[divAtual]).classList.toggle("toggleVisible");
 
 function next(){
     tempo = defaultTime;
+    let divProximo = divAtual;
 
-    document.getElementById("background-visible").style.backgroundImage = document.getElementById("background-notvisible").style.backgroundImage;
-    
+    document.getElementById(divs[divAtual]).classList.toggle("toggleVisible");
+
     i++;
-    document.getElementById("background-notvisible").style.backgroundImage = "url('https://picsum.photos/1920/1080?ramdom=" + i + "')";
+    divAtual = (divAtual + 1) % 2;
+    document.getElementById(divs[divAtual]).classList.toggle("toggleVisible");
+    document.getElementById(divs[divProximo]).style.backgroundImage = "url('https://picsum.photos/1920/1080?ramdom=" + i + "')";
 }
 
-if(tempo != -1){
-    setInterval(function(){
-        tempo--;
+setInterval(function(){
+    tempo--;
 
-        if(tempo == 0){
-            next();
-        }
-    },1000);
-}
+    if(tempo == 0){
+        next();
+    }
+},1000);
 
 function toggleFullscreen() {
     fullScreen = !fullScreen;
@@ -45,8 +49,6 @@ function toggleFullscreen() {
         } else if (document.msExitFullscreen) { /* IE11 */
             document.msExitFullscreen();
         }
-
-        document.getElementById("fullscreen-icon").innerHTML = "<path d='M1.5 1a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4A1.5 1.5 0 0 1 1.5 0h4a.5.5 0 0 1 0 1h-4zM10 .5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 16 1.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5zM.5 10a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 0 14.5v-4a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v4a1.5 1.5 0 0 1-1.5 1.5h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5z'/>"
     }else{
         if (document.body.requestFullscreen) {
             document.body.requestFullscreen();
@@ -55,9 +57,26 @@ function toggleFullscreen() {
         } else if (document.body.msRequestFullscreen) { /* IE11 */
             document.body.msRequestFullscreen();
         }
-
-        document.getElementById("fullscreen-icon").innerHTML = "<path d='M5.5 0a.5.5 0 0 1 .5.5v4A1.5 1.5 0 0 1 4.5 6h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5zm5 0a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 10 4.5v-4a.5.5 0 0 1 .5-.5zM0 10.5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 6 11.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5zm10 1a1.5 1.5 0 0 1 1.5-1.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4z'/>"
     }
+}
+
+if(typeof InstallTrigger !== 'undefined'){
+    document.addEventListener("mozfullscreenchange", function() {
+        if(fullScreen){
+            document.getElementById("fullscreen-icon").innerHTML = "<path d='M5.5 0a.5.5 0 0 1 .5.5v4A1.5 1.5 0 0 1 4.5 6h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5zm5 0a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 10 4.5v-4a.5.5 0 0 1 .5-.5zM0 10.5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 6 11.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5zm10 1a1.5 1.5 0 0 1 1.5-1.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4z'/>"
+        }else{
+            document.getElementById("fullscreen-icon").innerHTML = "<path d='M1.5 1a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4A1.5 1.5 0 0 1 1.5 0h4a.5.5 0 0 1 0 1h-4zM10 .5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 16 1.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5zM.5 10a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 0 14.5v-4a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v4a1.5 1.5 0 0 1-1.5 1.5h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5z'/>"
+        }
+    });
+}else{
+    /* Standard syntax */
+    document.addEventListener("fullscreenchange", function() {
+        if(fullScreen){
+            document.getElementById("fullscreen-icon").innerHTML = "<path d='M1.5 1a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4A1.5 1.5 0 0 1 1.5 0h4a.5.5 0 0 1 0 1h-4zM10 .5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 16 1.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5zM.5 10a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 0 14.5v-4a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v4a1.5 1.5 0 0 1-1.5 1.5h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5z'/>"
+        }else{
+            document.getElementById("fullscreen-icon").innerHTML = "<path d='M5.5 0a.5.5 0 0 1 .5.5v4A1.5 1.5 0 0 1 4.5 6h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5zm5 0a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 10 4.5v-4a.5.5 0 0 1 .5-.5zM0 10.5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 6 11.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5zm10 1a1.5 1.5 0 0 1 1.5-1.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4z'/>"
+        }
+    });
 }
 
 document.addEventListener("keydown",function(evt){
@@ -65,15 +84,6 @@ document.addEventListener("keydown",function(evt){
         case 70:
             toggleFullscreen();
         break;
-        case 122:
-            if(fullScreen){
-                document.getElementById("fullscreen-icon").innerHTML = "<path d='M1.5 1a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4A1.5 1.5 0 0 1 1.5 0h4a.5.5 0 0 1 0 1h-4zM10 .5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 16 1.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5zM.5 10a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 0 14.5v-4a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v4a1.5 1.5 0 0 1-1.5 1.5h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5z'/>"
-                fullScreen = false;
-            }else{
-                document.getElementById("fullscreen-icon").innerHTML = "<path d='M5.5 0a.5.5 0 0 1 .5.5v4A1.5 1.5 0 0 1 4.5 6h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5zm5 0a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 10 4.5v-4a.5.5 0 0 1 .5-.5zM0 10.5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 6 11.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5zm10 1a1.5 1.5 0 0 1 1.5-1.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4z'/>"
-                fullScreen = true;
-                
-            }
     }
 });
 

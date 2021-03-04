@@ -12,19 +12,33 @@ body{
     transition: all 0.5s;
 }
 
-#background-notvisible{
+#background-two{
     width: 100%;
     height: 100%;
     position: absolute;
     background-size: cover;
-    opacity: 0;
+    opacity: 100%;
+    -webkit-transition: opacity 1s ease-in;
+    -moz-transition: opacity 1s ease-in;
+    -o-transition: opacity 1s ease-in;
+    transition: opacity 1s ease-in;
 }
 
-#background-visible{
+#background-one{
     width: 100%;
     height: 100%;
     position: absolute;
     background-size: cover;
+    opacity: 100%;
+    -webkit-transition: opacity 1s ease-in;
+    -moz-transition: opacity 1s ease-in;
+    -o-transition: opacity 1s ease-in;
+    transition: opacity 1s ease-in;
+}
+
+.toggleVisible{
+    transition: all 0.5s;
+    opacity: 0 !important;
 }
 
 #content{
