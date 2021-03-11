@@ -1,6 +1,6 @@
 var tempo = 30;
 var darktheme = false;
-var selectedTimer = 1;
+var selectedTimer = 1;      //Botao default é o segundo, 30 seconds
 var defaultTime = tempo;
 var open = false;
 var hidden = false;
@@ -21,6 +21,7 @@ document.getElementById(divs[divAtual]).classList.toggle("toggleVisible");
 function next(){
     tempo = defaultTime;
     let divProximo = divAtual;
+    btns.enable = false;
 
     document.getElementById(divs[divAtual]).classList.toggle("toggleVisible");
 
@@ -28,6 +29,8 @@ function next(){
     divAtual = (divAtual + 1) % 2;
     document.getElementById(divs[divAtual]).classList.toggle("toggleVisible");
     document.getElementById(divs[divProximo]).style.backgroundImage = "url('https://picsum.photos/1920/1080?ramdom=" + i + "')";
+    if(defaultTime >= 0)
+        restartVisualTimer();
 }
 
 setInterval(function(){
@@ -38,6 +41,24 @@ setInterval(function(){
     }
 },1000);
 
+function restartVisualTimer(){
+    if(defaultTime <= 0){
+        document.getElementById("circle-timer").style.display = "none";
+    }else{
+        document.getElementById("circle-timer").style.display = "flex";
+    }
+
+    document.getElementById("circle-timer").classList.remove("wrapper");
+    document.getElementById("circle-left").classList.remove("circle");
+    document.getElementById("circle-right").classList.remove("circle");
+    setTimeout(function(){
+        document.getElementById("circle-timer").classList.add("wrapper");
+        document.getElementById("circle-left").classList.add("circle");
+        document.getElementById("circle-right").classList.add("circle");
+    }, 50);
+}
+
+/*---------------FullScreen------------------*/
 function toggleFullscreen() {
     fullScreen = !fullScreen;
 
@@ -60,7 +81,9 @@ function toggleFullscreen() {
     }
 }
 
-if(typeof InstallTrigger !== 'undefined'){
+var isFireFox = typeof InstallTrigger !== 'undefined';
+
+if(isFireFox){
     document.addEventListener("mozfullscreenchange", function() {
         if(fullScreen){
             document.getElementById("fullscreen-icon").innerHTML = "<path d='M5.5 0a.5.5 0 0 1 .5.5v4A1.5 1.5 0 0 1 4.5 6h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5zm5 0a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 10 4.5v-4a.5.5 0 0 1 .5-.5zM0 10.5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 6 11.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5zm10 1a1.5 1.5 0 0 1 1.5-1.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4z'/>"
@@ -78,6 +101,8 @@ if(typeof InstallTrigger !== 'undefined'){
         }
     });
 }
+/*------------------------------------------------*/
+
 
 document.addEventListener("keydown",function(evt){
     switch(evt.keyCode) {
@@ -106,24 +131,26 @@ function hideControls(){
     hidden = !hidden;
 
     if(hidden){
-        document.getElementById("eye").innerHTML = "<path d='M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z'/><path d='M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z'/><path d='M3.35 5.47c-.18.16-.353.322-.518.487A13.134 13.134 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7.029 7.029 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884l-12-12 .708-.708 12 12-.708.708z'/>"
         document.getElementById("button-line").style.opacity = 0;
         document.getElementById("button-line").style.visibility = "hidden";
-        document.getElementById("dropdown-content").style.opacity = 0; 
+        document.getElementById("dropdown-content").style.opacity = 0;
+        document.getElementById("circle-timer").style.opacity = 0;
+        document.getElementById("circle-timer").style.visibility = "hidden";
 
         if(darktheme == true)
             btns[0].style.backgroundColor = "#161b22";
         else
             btns[0].style.backgroundColor = "white"; 
         
-        document.getElementById("dropdown-content").style.display = "none";     
+        document.getElementById("dropdown-content").style.display = "none";    //Fechar o dropwdown-content 
         open = false;
     }else{
-        document.getElementById("eye").innerHTML = "<path d='M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z'/><path d='M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z'/>"
         document.getElementById("button-line").style.opacity = 1;
         document.getElementById("button-line").style.visibility = "visible";
         document.getElementById("dropdown-content").style.opacity = 1;
         document.getElementById("dropdown-content").style.visibility = "visible";
+        document.getElementById("circle-timer").style.opacity = 1;
+        document.getElementById("circle-timer").style.visibility = "visible";
     }
 }
 
@@ -141,6 +168,8 @@ function changeTheme(){
         document.getElementById("TimerSelector-content").style.backgroundColor = "#161b22";
         document.getElementById("TimerSelector-content").style.color = "white";
         timerBtns.forEach(element => element.style.backgroundColor = "#161b22");
+        document.getElementById("CustomTime-content").style.backgroundColor = "#161b22";
+        document.getElementById("CustomTime-content").style.color = "white";
     }else{
         document.body.style.backgroundColor = "white";
         document.body.style.color = "black";
@@ -151,15 +180,24 @@ function changeTheme(){
         document.getElementById("TimerSelector-content").style.backgroundColor = "white";
         document.getElementById("TimerSelector-content").style.color = "black";
         timerBtns.forEach(element => element.style.backgroundColor = "white");
+        document.getElementById("CustomTime-content").style.backgroundColor = "white";
+        document.getElementById("CustomTime-content").style.color = "black";
     }
 
     btns[0].style.backgroundColor = "lightgrey";
 }
 
+
+/*------------------TIMER------------------------*/
+
 function selectTimer(getTime, timerbutton){
     tempo = getTime;    //Passa a ser o tempo escolhido
     defaultTime = tempo;    //Tempo default passa para esse tempo (reset do timer)
     selectedTimer = timerbutton;    //Botão escolhido no timer
+    document.querySelector("[data-anim~=wrapper]").style.animationDelay = tempo/2 + "s";
+    document.querySelector("[data-anim~=right]").style.animationDuration = tempo/2 + "s";
+    document.querySelector("[data-anim~=left]").style.animationDuration = tempo + "s";
+    restartVisualTimer();
 
     if(darktheme == true)
         timerBtns.forEach(element => element.style.backgroundColor = "#161b22");
@@ -170,12 +208,20 @@ function selectTimer(getTime, timerbutton){
 }
 
 function costumTimer(timerbutton){
-    var x = prompt("Enter a Custom Timer (In Seconds)", "0");
-    var costumNum = parseInt(x);
+    var Hours = parseInt("0" + document.getElementById("Hours").value);
+    var Minutes = parseInt("0" + document.getElementById("Minutes").value);
+    var Seconds = parseInt("0" + document.getElementById("Seconds").value);
 
-    selectTimer(costumNum, timerbutton);
+    document.getElementById("Hours").value =  Hours;
+    document.getElementById("Minutes").value =  Minutes;
+    document.getElementById("Seconds").value =  Seconds;
+
+    var costumTime = (Hours*3600) + (Minutes*60) + Seconds;
+    selectTimer(costumTime, timerbutton);
+    closeCostumTimeSelector();
 }
 
+/*--------------------TimeSelector---------------------*/
 function openTimerSelector() {
     document.getElementById("TimerSelector").style.display = "flex";
 
@@ -186,9 +232,30 @@ function closeTimerSelector() {
     document.getElementById("TimerSelector").style.display = "none";
 }
 
+/*--------------------CUSTOM TIMER---------------------*/
+function openCostumTimeSelector() {
+    tempo = -1;
+    document.querySelector("[data-anim~=wrapper]").style.animationPlayState = "paused";
+    document.querySelector("[data-anim~=right]").style.animationPlayState = "paused";
+    document.querySelector("[data-anim~=left]").style.animationPlayState = "paused";
+
+    document.getElementById("CustomTime").style.display = "flex";
+}
+
+function closeCostumTimeSelector() {
+    tempo = defaultTime;
+    document.querySelector("[data-anim~=wrapper]").style.animationPlayState = "running";
+    document.querySelector("[data-anim~=right]").style.animationPlayState = "running";
+    document.querySelector("[data-anim~=left]").style.animationPlayState = "running";
+
+    document.getElementById("CustomTime").style.display = "none";
+}
+
 window.onclick = function(event) {
     if (event.target == document.getElementById("TimerSelector")) {
-        document.getElementById("TimerSelector").style.display = "none";
+        closeTimerSelector();
     }
-    
+    if (event.target == document.getElementById("CustomTime")) {
+        closeCostumTimeSelector();
+    }   
 }
