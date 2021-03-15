@@ -194,10 +194,7 @@ function selectTimer(getTime, timerbutton){
     document.querySelector("[data-anim~=left]").style.animationDuration = tempo + "s";
     restartVisualTimer();
 
-    if(darktheme == true)
-        timerBtns.forEach(element => element.style.backgroundColor = "#161b22");
-    else
-        timerBtns.forEach(element => element.style.backgroundColor = "white");
+    timerBtns.forEach(element => element.style.backgroundColor = "transparent");
 
     timerBtns[selectedTimer].style.backgroundColor = "rgba(125, 125, 125, 0.5)";
 }
@@ -219,12 +216,8 @@ function costumTimer(timerbutton){
 /*------------------WALLPAPER---------------------*/
 function selectWallpaper(wallpaperbutton){
     selectedWallpaper = wallpaperbutton;
-    alert("Wallpaper is still not working, this will probably take a while. Please wait until its done");
 
-    if(darktheme == true)
-        wallpaperBtns.forEach(element => element.style.backgroundColor = "#161b22");
-    else
-        wallpaperBtns.forEach(element => element.style.backgroundColor = "white");
+    wallpaperBtns.forEach(element => element.style.backgroundColor = "transparent");
 
     wallpaperBtns[selectedWallpaper].style.backgroundColor = "rgba(125, 125, 125, 0.5)";
 }
