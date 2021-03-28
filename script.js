@@ -10,6 +10,7 @@ let btns = document.querySelectorAll("[data-button]");
 let timerBtns = document.querySelectorAll("[data-timer]");
 let wallpaperBtns = document.querySelectorAll("[data-wallpaper]");
 let theme = document.querySelectorAll("[data-theme]");
+var canvas = document.getElementById("canvas").getContext("2d");
 
 var divs = ["background-one", "background-two"];
 var divAtual = 1;
@@ -23,15 +24,29 @@ document.getElementById(divs[divAtual]).classList.toggle("toggleVisible");
 
 function next(){
     tempo = defaultTime;
-    let divProximo = divAtual;
-    btns.enable = false;
 
-    document.getElementById(divs[divAtual]).classList.toggle("toggleVisible");
+    if(selectedWallpaper == 0){
+        let divProximo = divAtual;
+        btns.enable = false;
 
-    i++;
-    divAtual = (divAtual + 1) % 2;
-    document.getElementById(divs[divAtual]).classList.toggle("toggleVisible");
-    document.getElementById(divs[divProximo]).style.backgroundImage = "url('https://picsum.photos/1920/1080?ramdom=" + i + "')";
+        document.getElementById(divs[divAtual]).classList.toggle("toggleVisible");
+
+        i++;
+        divAtual = (divAtual + 1) % 2;
+        document.getElementById(divs[divAtual]).classList.toggle("toggleVisible");
+        document.getElementById(divs[divProximo]).style.backgroundImage = "url('https://picsum.photos/1920/1080?ramdom=" + i + "')";
+    }else if(selectedWallpaper == 1){
+        for(let i = 0; i < 200; i++){
+            var coords = Math.floor(Math.random()*10)
+            var tamanho = Math.floor((Math.random()*5) + 1)
+            canvas.fillStyle="red";
+            canvas.fillRect(coords, coords, tamanho, tamanho);
+        }
+    }else{
+        console.log("LOL SLIMES GO BRRRRRRRR");
+    }
+
+
     if(defaultTime >= 0)
         restartVisualTimer();
 }
@@ -146,8 +161,8 @@ function hideControls(){
         document.getElementById("button-line").style.opacity = 0;
         document.getElementById("button-line").style.visibility = "hidden";
         document.getElementById("dropdown-content").style.opacity = 0;
-        document.getElementById("circle-timer").style.opacity = 0;
-        document.getElementById("circle-timer").style.visibility = "hidden";
+        document.getElementById("timer-background").style.opacity = 0;
+        document.getElementById("timer-background").style.visibility = "hidden";
 
         if(darktheme == true)
             btns[0].style.backgroundColor = "#161b22";
@@ -161,8 +176,8 @@ function hideControls(){
         document.getElementById("button-line").style.visibility = "visible";
         document.getElementById("dropdown-content").style.opacity = 1;
         document.getElementById("dropdown-content").style.visibility = "visible";
-        document.getElementById("circle-timer").style.opacity = 1;
-        document.getElementById("circle-timer").style.visibility = "visible";
+        document.getElementById("timer-background").style.opacity = 1;
+        document.getElementById("timer-background").style.visibility = "visible";
     }
 }
 
@@ -173,9 +188,15 @@ function changeTheme(){
     if(darktheme == true){
         theme.forEach(element => element.style.backgroundColor = "#161b22");
         theme.forEach(element => element.style.color = "white");
+        document.getElementById("timer-background").style.backgroundColor = "rgba(255, 255, 255, 0.5)";
+        document.getElementById("circle-left").style.borderColor = "#161b22";
+        document.getElementById("circle-right").style.borderColor = "#161b22"; 
     }else{
         theme.forEach(element => element.style.backgroundColor = "white");
         theme.forEach(element => element.style.color = "black");
+        document.getElementById("timer-background").style.backgroundColor = "rgba(0, 0, 0, 0.5)";
+        document.getElementById("circle-left").style.borderColor = "white";
+        document.getElementById("circle-right").style.borderColor = "white"; 
     }
 
     if(open)
@@ -215,7 +236,22 @@ function costumTimer(timerbutton){
 
 /*------------------WALLPAPER---------------------*/
 function selectWallpaper(wallpaperbutton){
+    if(wallpaperbutton == selectedWallpaper){ return; }
+
     selectedWallpaper = wallpaperbutton;
+    tempo = defaultTime;
+    restartVisualTimer();
+
+    if(wallpaperbutton == 0){
+        for(let i in divs)
+            document.getElementById(divs[i]).style.opacity = 1;
+        document.getElementById("canvas").style.opacity = 0;
+    }else{
+        for(let i in divs)
+            document.getElementById(divs[i]).style.opacity = 0;
+        document.getElementById("canvas").style.opacity = 1;
+    }
+    next();
 
     wallpaperBtns.forEach(element => element.style.backgroundColor = "transparent");
 
