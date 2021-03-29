@@ -61,9 +61,9 @@ setInterval(function(){
 
 function restartVisualTimer(){
     if(defaultTime <= 0){
-        document.getElementById("circle-timer").style.display = "none";
+        document.getElementById("timer-background").style.display = "none";
     }else{
-        document.getElementById("circle-timer").style.display = "flex";
+        document.getElementById("timer-background").style.display = "flex";
     }
 
     document.getElementById("circle-timer").classList.remove("wrapper");
